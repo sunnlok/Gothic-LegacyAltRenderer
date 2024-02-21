@@ -123,7 +123,7 @@ void IssueTextureUpdate(IDirect3DTexture9* texture, unsigned char* data, UINT wi
 	if(!texture)
 		return;
 
-	IDirect3DTexture9* stagingTexture;
+	IDirect3DTexture9* stagingTexture{nullptr};
 	HRESULT result = IDirect3DDevice9_CreateTexture(g_Direct3D9Device9, width, height, 1, 0, format, D3DPOOL_SYSTEMMEM, &stagingTexture, nullptr);
 	if(FAILED(result))
 		return;
@@ -167,8 +167,8 @@ void IssueTextureUpdate(IDirect3DTexture9* texture, unsigned char* data, UINT wi
 		IDirect3DTexture9_Release(stagingTexture);
 		return;
 	}
-	IDirect3DSurface9* destSurface;
-	IDirect3DSurface9* stagingSurface;
+	IDirect3DSurface9* destSurface{nullptr};
+	IDirect3DSurface9* stagingSurface{nullptr};
 	IDirect3DTexture9_GetSurfaceLevel(stagingTexture, 0, &stagingSurface);
 	IDirect3DTexture9_GetSurfaceLevel(texture, miplevel, &destSurface);
 	IDirect3DDevice9_UpdateSurface(g_Direct3D9Device9, stagingSurface, nullptr, destSurface, nullptr);
@@ -246,7 +246,7 @@ void IssueDrawingBackBuffer()
 	DWORD clipping, culling, addrU, addrV, alphaO1, alphaO2, alphaA1, alphaA2, colorO1, colorO2;
 	DWORD colorA1, colorA2, textureTransformFlags, textureCoordIndex, magFilter, minFilter;
 	D3DVIEWPORT9 oldViewPort;
-	IDirect3DBaseTexture9* oldTexture;
+	IDirect3DBaseTexture9* oldTexture{nullptr};
 	IDirect3DDevice9_GetRenderState(g_Direct3D9Device9, D3DRS_ZWRITEENABLE, &zWrite);
 	IDirect3DDevice9_GetRenderState(g_Direct3D9Device9, D3DRS_ZFUNC, &zFunc);
 	IDirect3DDevice9_GetRenderState(g_Direct3D9Device9, D3DRS_RANGEFOGENABLE, &rangeFog);
